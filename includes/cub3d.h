@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:45:19 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 19:29:57 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
-
-# define GOAT "https://www.youtube.com/watch?v=gYRrGTC7GtA"
 
 # define PI 3.14159265358979323846
 # define DRAD 0.0174533
@@ -100,6 +98,7 @@ float		max(float a, float b);
 int			trgb(int t, int r, int g, int b);
 int			hex_to_dec(char *nb);
 void		free_tab(char **tab);
+int			is_pos_in_res(float x, float y);
 
 int			**init_map(void);
 void		drawmap2d(t_img *img, t_data *data);

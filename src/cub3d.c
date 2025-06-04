@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:20:37 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:47:41 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 19:27:14 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,38 @@ void	display(t_data *data, int i)
 int	handle_key_input(int keysym, t_data *data)
 {
 	t_pos	dir;
+	t_pos	p;
+	t_pos	d;
+	float	temp;
 
 	if (keysym == XK_Escape)
 		return (printf("%d (ESC) key pressed\n", keysym),
 			free_data(data), exit(0), 0);
+	asign_pos(&d, data->p->d->x, data->p->d->y);
+	asign_pos(&p, data->p->pos->x, data->p->pos->y);
 	if (keysym == XK_w || keysym == XK_s)
 	{
-		asign_pos(&dir, data->p->d->x, data->p->d->y);
+		asign_pos(&dir, d.x, d.y);
 		if (keysym == XK_s)
-			asign_pos(&dir, -data->p->d->x, -data->p->d->y);
-		if (data->p->pos->x + dir.x > 0 && data->p->pos->x + dir.x < RES_X
-			&& data->p->pos->y + dir.y > 0 && data->p->pos->y + dir.y < RES_Y)
-			asign_pos(data->p->pos, data->p->pos->x + dir.x,
-				data->p->pos->y + dir.y);
+			asign_pos(&dir, -d.x, -d.y);
+		if (is_pos_in_res(p.x + dir.x, p.y + dir.y))
+			asign_pos(data->p->pos, p.x+ dir.x, p.y + dir.y);
 	}
 	if (keysym == XK_a || keysym == XK_d)
 	{
-		data->p->a = limit_angle(data->p->a + 0.1);
+		temp = data->p->a;
+		temp = limit_angle(temp + PI / 2);
 		if (keysym == XK_a)
+			temp = limit_angle(temp - PI);
+		asign_pos(data->p->d, cos(temp) * 5, sin(temp) * 5);
+		if (is_pos_in_res(p.x + data->p->d->x, p.y + data->p->d->y))
+			asign_pos(data->p->pos, p.x + data->p->d->x, p.y + data->p->d->y);
+		asign_pos(data->p->d, cos(data->p->a) * 5, sin(data->p->a) * 5);
+	}
+	if (keysym == XK_Left || keysym == XK_Right)
+	{
+		data->p->a = limit_angle(data->p->a + 0.1);
+		if (keysym == XK_Left)
 			data->p->a = limit_angle(data->p->a - 0.2);
 		asign_pos(data->p->d, cos(data->p->a) * 5, sin(data->p->a) * 5);
 	}
@@ -79,28 +93,6 @@ t_data	*init_data()
 	data -> ceiling_col = trgb(0, 0, 255, 255);
 	return (data);
 }
-
-// void	re_draw(char *texture, t_data *data)
-// {
-// 	int		width;
-// 	int		height;
-// 	int		x;
-// 	int		y;
-// 	char	*color;
-
-// 	data -> no = init_img(data, mlx_xpm_file_to_image(data->mlx,
-// 				texture, &width, &height));
-// 	y = -1;
-// 	while (++y < height)
-// 	{
-// 		x = -1;
-// 		while (++x < width)
-// 		{
-// 			color = data->no->addr + (y * data->no->line_length + x * (data->no->b_p_p / 8));
-// 			put_pixel(data -> img, init_pos(RES_X / 2 + x, RES_Y / 2 + y), *(unsigned int*)color, 1);
-// 		}
-// 	}
-// }
 
 int	main(void)
 {

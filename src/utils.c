@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:51 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:45:56 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 19:28:45 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ void	free_data(t_data *data)
 
 	mlx_destroy_image(data -> mlx, data -> img -> img);
 	free(data -> img);
-	// mlx_destroy_image(data -> mlx, data -> no -> img);
-	// free(data -> no);
-	// mlx_destroy_image(data -> mlx, data -> no);
-	// mlx_destroy_image(data -> mlx, data -> img -> img);
-	// free(data -> img);
-	// mlx_destroy_image(data -> mlx, data -> img -> img);
-	// free(data -> img);
-	// mlx_destroy_image(data -> mlx, data -> img -> img);
-	// free(data -> img);
+	mlx_destroy_image(data -> mlx, data -> no -> img);
+	free(data -> no);
+	mlx_destroy_image(data -> mlx, data -> so -> img);
+	free(data -> so);
+	mlx_destroy_image(data -> mlx, data -> we -> img);
+	free(data -> we);
+	mlx_destroy_image(data -> mlx, data -> ea -> img);
+	free(data -> ea);
 	mlx_destroy_window(data -> mlx, data -> win);
 	mlx_destroy_display(data -> mlx);
 	free(data -> mlx);
@@ -180,4 +179,9 @@ int	hex_to_dec(char *nb)
 		p = p * 16;
 	}
 	return (free(nb), res);
+}
+
+int	is_pos_in_res(float x, float y)
+{
+	return (0 <= x && x <= RES_X && 0 <= y && y <= RES_Y);
 }
