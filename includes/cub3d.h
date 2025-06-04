@@ -6,16 +6,16 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 15:16:54 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 18:45:19 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_H
 # define TEST_H
 
-# include "libft/includes/libft.h"
-# include "libft/includes/get_next_line_bonus.h"
-# include "minilibx-linux/mlx.h"
+# include "../libft/includes/libft.h"
+# include "../libft/includes/get_next_line_bonus.h"
+# include "../minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <X11/keysym.h>

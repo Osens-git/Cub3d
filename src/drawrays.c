@@ -6,11 +6,11 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:32:40 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:34:20 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 18:48:15 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 static t_pos	*get_hr(t_pos *r, t_pos *off, t_data *data)
 {

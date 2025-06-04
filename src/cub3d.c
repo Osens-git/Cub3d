@@ -6,11 +6,11 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:20:37 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:19:43 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 18:47:41 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int	close_win(t_data *data)
 {
@@ -110,10 +110,10 @@ int	main(void)
 	int		w;
 
 	data = init_data();
-	data -> no = init_img(data, mlx_xpm_file_to_image(data->mlx, "north.xpm", &w, &h));
-	data -> so = init_img(data, mlx_xpm_file_to_image(data->mlx, "south.xpm", &w, &h));
-	data -> ea = init_img(data, mlx_xpm_file_to_image(data->mlx, "east.xpm", &w, &h));
-	data -> we = init_img(data, mlx_xpm_file_to_image(data->mlx, "west.xpm", &w, &h));
+	data -> no = init_img(data, mlx_xpm_file_to_image(data->mlx, "textures/north.xpm", &w, &h));
+	data -> so = init_img(data, mlx_xpm_file_to_image(data->mlx, "textures/south.xpm", &w, &h));
+	data -> ea = init_img(data, mlx_xpm_file_to_image(data->mlx, "textures/east.xpm", &w, &h));
+	data -> we = init_img(data, mlx_xpm_file_to_image(data->mlx, "textures/west.xpm", &w, &h));
 	asign_pos(&r, data -> p -> pos -> x + (data -> p -> d->x * 5),
 		data -> p -> pos -> y + (data -> p -> d->y * 5));
 	drawmap2d(data -> img, data);

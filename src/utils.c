@@ -6,11 +6,11 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:51 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 15:26:29 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 18:45:56 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 t_img	*init_img(t_data *data, void *img_ptr)
 {

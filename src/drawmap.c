@@ -6,11 +6,11 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:36:03 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 13:10:58 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 18:46:03 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 int	*init_tab(int n1, int n2, int n3, int n4, int n5, int n6, int n7, int n8)
 {

@@ -6,11 +6,11 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:05 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 13:11:01 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/04 18:46:01 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	put_pixel(t_img *img, t_pos *a, int color, int do_free)
 {
