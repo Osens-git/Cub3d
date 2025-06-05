@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:36:03 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:46:03 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/05 14:25:24 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	**init_map(void)
 	return (map);
 }
 
-void	drawmap2d(t_img *img, t_data *data)
+void	drawmap2d(t_data *data)
 {
 	int		i;
 	int		color;
@@ -67,7 +67,7 @@ void	drawmap2d(t_img *img, t_data *data)
 			{
 				asign_pos(&a, i, (p.y * CELLSIZE) + 1);
 				asign_pos(&b, i, (p.y * (CELLSIZE)) + CELLSIZE - 1);
-				drawline(img, &a, &b, color);
+				drawline(data -> img, &a, &b, color);
 			}
 		}
 	}

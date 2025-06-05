@@ -6,12 +6,12 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 19:29:57 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/05 15:25:44 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../libft/includes/libft.h"
 # include "../libft/includes/get_next_line_bonus.h"
@@ -26,20 +26,20 @@
 # define PI 3.14159265358979323846
 # define DRAD 0.0174533
 
-# define RES_X 1024
-# define RES_Y 512
+# define RES_X 960
+# define RES_Y 640
 # define CELLSIZE 64
 
 // CALLOC USED
 
-typedef struct	s_array
+typedef struct s_array
 {
 	int		tot_len;
 	int		arr_i;
 	char	**arr;
 }	t_array;
 
-typedef struct	s_xpm
+typedef struct s_xpm
 {
 	int	height;
 	int	width;
@@ -48,7 +48,7 @@ typedef struct	s_xpm
 	int	**arr;
 }	t_xpm;
 
-typedef	struct s_pos
+typedef struct s_pos
 {
 	float	x;
 	float	y;
@@ -58,7 +58,7 @@ typedef struct s_player
 {
 	t_pos	*pos;
 	t_pos	*d;
-	float 	a;
+	float	a;
 }	t_player;
 
 typedef struct s_img
@@ -66,9 +66,21 @@ typedef struct s_img
 	void	*img;
 	char	*addr;
 	int		b_p_p;
-	int		line_length;
+	int		lin_len;
 	int		endian;
 }	t_img;
+
+typedef struct s_ray
+{
+	float	hline;
+	t_pos	minhdist;
+	t_pos	minvdist;
+	t_pos	mindist;
+	t_img	*tex;
+	float	tx;
+	float	ty_off;
+	float	ty_step;
+}	t_ray;
 
 typedef struct s_data
 {
@@ -81,6 +93,7 @@ typedef struct s_data
 	t_img		*so;
 	t_img		*we;
 	t_img		*ea;
+	t_img		*cur_tex;
 	int			floor_col;
 	int			ceiling_col;
 }	t_data;
@@ -93,20 +106,24 @@ t_pos		*init_pos(float x, float y);
 void		asign_pos(t_pos *pos, float x, float y);
 float		dist(t_pos *a, t_pos *b);
 float		limit_angle(float nb);
-float		min(float a, float b);
-float		max(float a, float b);
 int			trgb(int t, int r, int g, int b);
 int			hex_to_dec(char *nb);
 void		free_tab(char **tab);
 int			is_pos_in_res(float x, float y);
 
 int			**init_map(void);
-void		drawmap2d(t_img *img, t_data *data);
-	
+void		drawmap2d(t_data *data);
+
 void		put_pixel(t_img *img, t_pos *a, int color, int do_free);
 void		drawline(t_img *img, t_pos *a, t_pos *b, int color);
-	
-void		drawrays(t_img *img, t_data *data);
+void		draw_straight(t_img	*img, t_pos	*a, t_pos *b, int color);
 
-	
+void		get_hray(float ra, t_pos *hray, t_data *data);
+void		get_vray(float ra, t_pos *vray, t_data *data);
+void		drawrays(t_data *data);
+
+void		display(t_data *data);
+int			close_win(t_data *data);
+int			handle_key_input(int keysym, t_data *data);
+
 #endif

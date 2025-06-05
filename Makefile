@@ -6,7 +6,7 @@
 #    By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/29 13:22:33 by vluo              #+#    #+#              #
-#    Updated: 2025/06/04 18:46:29 by vluo             ###   ########.fr        #
+#    Updated: 2025/06/05 14:22:26 by vluo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,12 @@ BLUE			=	\e[34m
 
 RESET			=	\e[0m
 
-SRC				=	$(SRC_DIR)drawline.c						\
-					$(SRC_DIR)drawmap.c	$(SRC_DIR)drawrays.c	\
-					$(SRC_DIR)utils.c	$(SRC_DIR)cub3d.c		\
+SRC				=	$(SRC_DIR)drawline.c $(SRC_DIR)drawrays.c	\
+					$(SRC_DIR)drawmap.c							\
+					$(SRC_DIR)get_min_ray.c						\
+					$(SRC_DIR)utils.c $(SRC_DIR)utils2.c		\
+					$(SRC_DIR)utils3.c							\
+					$(SRC_DIR)handle_input.c $(SRC_DIR)cub3d.c	\
 
 OBJ				=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

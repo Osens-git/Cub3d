@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:05 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/04 18:46:01 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/05 15:25:29 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	put_pixel(t_img *img, t_pos *a, int color, int do_free)
 
 	if (a-> x > 0 && a -> x < RES_X && a-> y > 0 && a -> y < RES_Y)
 	{
-		dst = img->addr + ((int)a->y * img->line_length
+		dst = img->addr + ((int)a->y * img->lin_len
 				+ (int)a->x * (img->b_p_p / 8));
 		*(unsigned int *) dst = color;
 	}
@@ -103,4 +103,13 @@ void	drawline(t_img *img, t_pos *a, t_pos *b, int color)
 	}
 	d = init_pos(b->x - a->x, b->y - a->y);
 	return (draw_vline(img, a, d, color), free(d));
+}
+
+void	draw_straight(t_img	*img, t_pos	*a, t_pos *b, int color)
+{
+	int	y;
+
+	y = a -> y;
+	while (y++ < b -> y)
+		put_pixel(img, init_pos(a->x, y), color, 1);
 }
