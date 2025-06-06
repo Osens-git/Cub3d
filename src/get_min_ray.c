@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 13:04:38 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/05 15:37:36 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/06 16:17:36 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	get_vray(float ra, t_pos *vray, t_data *data)
 		asign_pos(&off, CELLSIZE, -(CELLSIZE) * (-tan(ra)));
 	}
 	if (ra == 0 || (PI - 0.0001 < ra && ra < PI + 0.0001))
-		asign_pos(&r, data->p->pos->x - ((int)data->p->pos->x % CELLSIZE),
+		asign_pos(&r,
+			data->p->pos->x - ((int)roundf(data->p->pos->x) % CELLSIZE),
 			data->p->pos->y);
 	return (get_vr(&r, &off, vray, data));
 }

@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:20:37 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/05 16:46:40 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/06 16:08:05 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_data	*init_data(void)
 	data = calloc(1, sizeof(t_data));
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window(data -> mlx, RES_X, RES_Y, "CUB3D");
-	data -> p = init_player(init_pos(5 * CELLSIZE, 5 * CELLSIZE), PI);
+	data -> p = init_player(init_pos(5 * CELLSIZE, 5 * CELLSIZE), 3 * PI / 2);
 	data -> img = init_img(data, NULL);
 	data -> map = init_map();
 	data -> floor_col = trgb(0, 128, 128, 128);

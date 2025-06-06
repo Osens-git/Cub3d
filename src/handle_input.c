@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:19:45 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/05 14:37:23 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/06 16:12:07 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	handle_wasd(int keysym, t_data *data)
 			asign_pos(&dir, -d.x, -d.y);
 		if (is_pos_in_res(p.x + dir.x, p.y + dir.y))
 			asign_pos(data->p->pos, p.x + dir.x, p.y + dir.y);
-		return ;
+		return (display(data));
 	}
 	temp = data->p->a;
 	temp = limit_angle(temp + PI / 2);
@@ -44,6 +44,7 @@ static void	handle_wasd(int keysym, t_data *data)
 	if (is_pos_in_res(p.x + data->p->d->x, p.y + data->p->d->y))
 		asign_pos(data->p->pos, p.x + data->p->d->x, p.y + data->p->d->y);
 	asign_pos(data->p->d, cos(data->p->a) * 5, sin(data->p->a) * 5);
+	return (display(data));
 }
 
 int	handle_key_input(int keysym, t_data *data)
@@ -52,13 +53,14 @@ int	handle_key_input(int keysym, t_data *data)
 		return (printf("%d (ESC) key pressed\n", keysym),
 			free_data(data), exit(0), 0);
 	if (keysym == XK_w || keysym == XK_a || keysym == XK_s || keysym == XK_d)
-		handle_wasd(keysym, data);
+		return (handle_wasd(keysym, data), 1);
 	if (keysym == XK_Left || keysym == XK_Right)
 	{
 		data->p->a = limit_angle(data->p->a + 0.1);
 		if (keysym == XK_Left)
 			data->p->a = limit_angle(data->p->a - 0.2);
 		asign_pos(data->p->d, cos(data->p->a) * 5, sin(data->p->a) * 5);
+		return (display(data), 1);
 	}
-	return (display(data), 1);
+	return (1);
 }

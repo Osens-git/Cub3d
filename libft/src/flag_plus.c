@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 19:37:38 by vluo              #+#    #+#             */
-/*   Updated: 2024/11/25 19:42:36 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/06 15:10:22 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ static int	plus_di(int precision, t_list *f, int *cpt)
 
 int	flag_plus(const char *format, t_list *f, int *cpt)
 {
-	int	chr;
 	int	precision;
 
 	precision = ft_atoi(format);
-	chr = strschr(&format[1], "cspdiuxX%");
 	return (plus_di(precision, f, cpt));
 }
