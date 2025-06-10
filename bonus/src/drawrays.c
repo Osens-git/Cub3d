@@ -6,11 +6,11 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:32:40 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 16:01:24 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/10 18:52:52 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static void	get_ray_dist(float ra, t_ray *ray, t_data *data)
 {
@@ -33,23 +33,29 @@ static void	get_ray_dist(float ra, t_ray *ray, t_data *data)
 
 static void	get_ray_tex(float ra, t_ray *ray, t_data *data)
 {
-	ray->tex = data -> ea;
+	t_pos	r;
+
+	asign_pos(&r, (int)(ray->mindist.x / CELLSIZE),
+		(int)(ray->mindist.y / CELLSIZE));
+	get_dir_texture(ray, r, data, 1);
 	ray->tx = ((int)ray->mindist.y / 2 % 32);
 	if (PI / 2 <= ra && ra <= 3 * PI / 2)
 	{
-		ray->tex = data -> we;
+		get_dir_texture(ray, r, data, 2);
 		ray->tx = 31 - ((int)ray->mindist.y / 2 % 32);
 	}
 	if (dist(&ray->mindist, data->p->pos) == dist(&ray->minhdist, data->p->pos))
 	{
-		ray->tex = data -> no;
+		get_dir_texture(ray, r, data, 3);
 		ray->tx = ((int)ray->mindist.x / 2 % 32);
 		if (0 <= ra && ra <= PI)
 		{
-			ray->tex = data -> so;
+			get_dir_texture(ray, r, data, 4);
 			ray->tx = 31 - ((int)ray->mindist.x / 2 % 32);
 		}
 	}
+	if (data->map[(int)r.y][(int)r.x] == 2)
+		ray -> tex = data -> door;
 }
 
 static void	drawline_texture(t_img *img, t_pos *a, t_ray *ray)
