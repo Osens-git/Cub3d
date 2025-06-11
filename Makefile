@@ -6,7 +6,7 @@
 #    By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/29 13:22:33 by vluo              #+#    #+#              #
-#    Updated: 2025/06/10 16:05:01 by vluo             ###   ########.fr        #
+#    Updated: 2025/06/11 12:06:24 by vluo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,11 @@ SRC				=	$(SRC_DIR)drawline.c $(SRC_DIR)drawrays.c	\
 					$(SRC_DIR)utils3.c							\
 					$(SRC_DIR)handle_input.c $(SRC_DIR)cub3d.c	\
 
-SRC_BONUS		=	$(SRC_BONUS_DIR)drawline.c $(SRC_BONUS_DIR)drawrays.c	\
-					$(SRC_BONUS_DIR)draw_minimap.c							\
-					$(SRC_BONUS_DIR)get_min_ray.c							\
-					$(SRC_BONUS_DIR)utils.c $(SRC_BONUS_DIR)utils2.c		\
-					$(SRC_BONUS_DIR)utils3.c								\
+SRC_BONUS		=	$(SRC_BONUS_DIR)drawline.c $(SRC_BONUS_DIR)drawrays.c			\
+					$(SRC_BONUS_DIR)draw_minimap.c									\
+					$(SRC_BONUS_DIR)get_min_ray.c									\
+					$(SRC_BONUS_DIR)utils.c $(SRC_BONUS_DIR)utils2.c				\
+					$(SRC_BONUS_DIR)utils3.c $(SRC_BONUS_DIR)handle_movement.c	 	\
 					$(SRC_BONUS_DIR)handle_input.c $(SRC_BONUS_DIR)cub3d_bonus.c	\
 
 OBJ				=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))

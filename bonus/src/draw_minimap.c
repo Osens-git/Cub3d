@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:36:03 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 18:01:35 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/11 15:13:21 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,25 @@ int	**init_map(void)
 
 	map = calloc(8, sizeof(int *));
 	map[0] = init_tab(1, 1, 1, 1, 1, 1, 1, 1);
-	map[1] = init_tab(1, 0, 1, 0, 0, 1, 0, 1);
+	map[1] = init_tab(1, 0, 1, 0, 2, 1, 0, 1);
 	map[2] = init_tab(1, 0, 1, 0, 0, 1, 0, 1);
-	map[3] = init_tab(1, 0, 2, 1, 2, 1, 0, 1);
-	map[4] = init_tab(1, 2, 2, 0, 0, 2, 0, 1);
-	map[5] = init_tab(1, 0, 1, 1, 2, 1, 1, 1);
+	map[3] = init_tab(1, 0, 1, 0, 0, 1, 0, 1);
+	map[4] = init_tab(1, 0, 0, 0, 0, 2, 0, 1);
+	map[5] = init_tab(1, 0, 1, 1, 0, 1, 1, 1);
 	map[6] = init_tab(1, 0, 0, 0, 0, 0, 0, 1);
 	map[7] = init_tab(1, 1, 1, 1, 1, 1, 1, 1);
 	return (map);
 }
 
-void	draw_player(t_data *data)
+int	get_cell_color(t_data *data, int x, int y)
 {
-	float	ra;
-	int		i;
-	t_pos	pos_minimap;
-	t_pos	d;
-	t_pos	r;
-
-	ra = limit_angle(data->p->a - DRAD * 30);
-	i = -1;
-	asign_pos(&pos_minimap, data->p->pos->x / 2, data->p->pos->y / 2);
-	put_pixel(data -> minimap, &pos_minimap, 0x00FF1111, 0);
-	while (++i < 120)
-	{
-		asign_pos(&d, cos(ra) * 5, sin(ra) * 5);
-		asign_pos(&r, pos_minimap.x + (d.x * 5), pos_minimap.y + (d.y * 5));
-		drawline(data -> minimap, &pos_minimap, &r, 0x00FFFFFF);
-		ra = limit_angle(ra + DRAD / 2);
-	}	
+	if (data-> map[y][x] == 0)
+		return (0x0000008B);
+	if (data-> map[y][x] == 1)
+		return (0x00414e58);
+	if (data-> map[y][x] == 2)
+		return (0x0006402B);
+	return (0x003b3b3b);
 }
 
 void	drawmap2d(t_data *data)
@@ -79,9 +69,7 @@ void	drawmap2d(t_data *data)
 		p.x = -1;
 		while (++p.x < 8)
 		{
-			color = 0x0000008B;
-			if (data -> map[(int)p.y][(int)p.x] >= 1)
-				color = 0x00414e58;
+			color = get_cell_color(data, (int)p.x, (int)p.y);
 			i = (p.x * (CELLSIZE / 2)) - 1;
 			while (++i < (p.x * (CELLSIZE / 2)) + (CELLSIZE / 2))
 			{
@@ -91,5 +79,4 @@ void	drawmap2d(t_data *data)
 			}
 		}
 	}
-	draw_player(data);
 }

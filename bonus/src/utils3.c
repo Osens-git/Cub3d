@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 12:53:31 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 17:39:47 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/11 14:41:26 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ void	get_dir_texture(t_ray *ray, t_pos r, t_data *data, int dir)
 		if (r.x >= 0 && data -> map[(int)r.y][(int)r.x - 1] == -1)
 			ray->tex = data -> door_open;
 	}
-	else if (dir == 2)
+	if (dir == 2)
 	{
 		ray->tex = data -> we;
 		if (r.x < 8 && data -> map[(int)r.y][(int)r.x + 1] == -1)
 			ray->tex = data -> door_open;
 	}
-	else if (dir == 3)
+	if (dir == 3)
 	{
 		ray->tex = data -> no;
 		if (r.y + 1 < 8 && data -> map[(int)r.y + 1][(int)r.x] == -1)
 			ray->tex = data -> door_open;
 	}
-	else
+	if (dir == 4)
 	{
 		ray->tex = data -> so;
 		if (r.y - 1 >= 0 && data -> map[(int)r.y - 1][(int)r.x] == -1)

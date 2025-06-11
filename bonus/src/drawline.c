@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:05 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 16:15:03 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/11 12:14:43 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	draw_straight(t_img	*img, t_pos	*a, t_pos *b, int color)
 	if (a->x == b->x)
 	{
 		y = a -> y - 1;
-		while (++y < b -> y)
+		while (++y <= b -> y)
 			put_pixel(img, init_pos(a->x, y), color, 1);
 		return ;
 	}

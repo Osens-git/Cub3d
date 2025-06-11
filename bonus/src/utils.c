@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:51 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 12:47:22 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/11 14:53:51 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ void	free_data(t_data *data)
 	free(data -> we);
 	mlx_destroy_image(data -> mlx, data -> ea -> img);
 	free(data -> ea);
-	if (data -> minimap)
-	{
-		mlx_destroy_image(data -> mlx, data -> minimap -> img);
-		free(data -> minimap);
-	}
+	mlx_destroy_image(data -> mlx, data -> minimap -> img);
+	free(data -> minimap);
+	mlx_destroy_image(data -> mlx, data -> door_open -> img);
+	free(data -> door_open);
+	mlx_destroy_image(data -> mlx, data -> door -> img);
+	free(data -> door);
 	i = -1;
 	while (++i < 8)
 		free(data->map[i]);

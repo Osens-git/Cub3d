@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 18:52:07 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/11 16:15:49 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_data
 	int			floor_col;
 	int			ceiling_col;
 	t_img		*minimap;
+	int			frame;
 }	t_data;
 
 void		free_data(t_data *data);
@@ -124,9 +125,10 @@ void		get_hray(float ra, t_pos *hray, t_data *data);
 void		get_vray(float ra, t_pos *vray, t_data *data);
 void		drawrays(t_data *data);
 
-void		display(t_data *data);
+int			display(t_data *data);
 int			close_win(t_data *data);
 int			handle_key_input(int keysym, t_data *data);
-int			handle_mouse(t_data *data);
+void		handle_wasd(int keysym, t_data *data);
+int			handle_mouse(int x, int y, t_data *data);
 
 #endif

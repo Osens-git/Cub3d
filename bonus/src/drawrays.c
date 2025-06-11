@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:32:40 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/10 18:52:52 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/11 15:11:58 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	get_ray_tex(float ra, t_ray *ray, t_data *data)
 
 	asign_pos(&r, (int)(ray->mindist.x / CELLSIZE),
 		(int)(ray->mindist.y / CELLSIZE));
+	if (PI - 0.0001 <= ra && ra <= PI + 0.0001)
+		asign_pos(&r, r.x - 1, r.y);
 	get_dir_texture(ray, r, data, 1);
 	ray->tx = ((int)ray->mindist.y / 2 % 32);
 	if (PI / 2 <= ra && ra <= 3 * PI / 2)
@@ -103,13 +105,18 @@ void	drawrays(t_data *data)
 	int		i;
 	float	ra;
 	t_ray	*ray;
+	t_pos	minimap_pos;
+	t_pos	minimap_ray;
 
 	ra = limit_angle(data->p->a - DRAD * 30);
 	i = -1;
+	asign_pos(&minimap_pos, data->p->pos->x / 2, data->p->pos->y / 2);
 	while (++i < 240)
 	{
 		ray = ft_calloc(1, sizeof(t_ray));
 		get_ray_dist(ra, ray, data);
+		asign_pos(&minimap_ray, ray->mindist.x / 2, ray->mindist.y / 2);
+		drawline(data->minimap, &minimap_pos, &minimap_ray, 0x00ffffff);
 		get_ray_tex(ra, ray, data);
 		draw_ray(i, ray, data);
 		free(ray);
