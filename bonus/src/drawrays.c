@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:32:40 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/11 15:11:58 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/16 19:31:50 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	get_ray_tex(float ra, t_ray *ray, t_data *data)
 		}
 	}
 	if (data->map[(int)r.y][(int)r.x] == 2)
-		ray -> tex = data -> door;
+		ray -> tex = data -> d;
 }
 
 static void	drawline_texture(t_img *img, t_pos *a, t_ray *ray)

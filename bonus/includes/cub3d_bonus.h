@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/11 16:15:49 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/16 19:01:06 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ typedef struct s_player
 	t_pos	*pos;
 	t_pos	*d;
 	float	a;
+	t_pos	*near_door;
+	int		can_open;
+	int		can_close;
+	int		k_w;
+	int		k_a;
+	int		k_s;
+	int		k_d;
+	int		k_l;
+	int		k_r;
 }	t_player;
 
 typedef struct s_img
@@ -82,6 +91,16 @@ typedef struct s_ray
 	float	ty_step;
 }	t_ray;
 
+typedef struct s_sprite
+{
+	int		state;
+	int		x;
+	int		y;
+	int		z;
+	t_img	**textures;
+	int		cur_text;
+}	t_sprite;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -89,16 +108,18 @@ typedef struct s_data
 	t_img		*img;
 	t_player	*p;
 	int			**map;
+	t_pos		*m_size;
 	t_img		*no;
 	t_img		*so;
 	t_img		*we;
 	t_img		*ea;
-	t_img		*door;
-	t_img		*door_open;
+	t_img		*d;
+	t_img		*d_open;
 	int			floor_col;
 	int			ceiling_col;
 	t_img		*minimap;
 	int			frame;
+	t_sprite	**sprites;
 }	t_data;
 
 void		free_data(t_data *data);
@@ -113,6 +134,10 @@ int			trgb(int t, int r, int g, int b);
 int			hex_to_dec(char *nb);
 void		free_tab(char **tab);
 void		get_dir_texture(t_ray *ray, t_pos r, t_data *data, int dir);
+void		put_text(t_data *data, char *text);
+void		free_sprites(t_data	*data);
+void		free_img(t_data *data, t_img *img);
+t_img		*xpm_img(t_data *data, char *file);
 
 int			**init_map(void);
 void		drawmap2d(t_data *data);
@@ -128,7 +153,13 @@ void		drawrays(t_data *data);
 int			display(t_data *data);
 int			close_win(t_data *data);
 int			handle_key_input(int keysym, t_data *data);
-void		handle_wasd(int keysym, t_data *data);
+int			key_up(int keysym, t_data *data);
+void		handle_wasd_keys(t_data *data);
+void		handle_lr_keys(t_data *data);
 int			handle_mouse(int x, int y, t_data *data);
+
+int			check_door(t_data *data);
+
+int			display(t_data *data);
 
 #endif

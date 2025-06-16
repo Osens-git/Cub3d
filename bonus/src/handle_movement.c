@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 12:03:26 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/11 16:31:30 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/16 19:11:08 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	move_player(t_data *data, t_pos	*d)
 		asign_pos(data->p->pos, data->p->pos->x, data->p->pos->y + d->y);
 }
 
-void	handle_wasd(int keysym, t_data *data)
+void	handle_wasd_keys(t_data *data)
 {
 	t_pos	dir;
 	t_pos	d;
@@ -78,21 +78,34 @@ void	handle_wasd(int keysym, t_data *data)
 
 	asign_pos(&d, data->p->d->x, data->p->d->y);
 	asign_pos(&p, data->p->pos->x, data->p->pos->y);
-	if (keysym == XK_w || keysym == XK_s)
+	if (data -> p -> k_w || data -> p -> k_s)
 	{
 		asign_pos(&dir, d.x, d.y);
-		if (keysym == XK_s)
+		if (data -> p -> k_s)
 			asign_pos(&dir, -d.x, -d.y);
 		move_player(data, &dir);
-		return ((void)dir);
 	}
-	temp = data->p->a;
-	data->p->a = limit_angle(data->p->a + PI / 2);
-	if (keysym == XK_a)
-		data->p->a = limit_angle(data->p->a - PI);
-	asign_pos(&d, cos(data->p->a) * 5, sin(data->p->a) * 5);
-	move_player(data, &d);
-	data->p->a = temp;
+	if (data -> p -> k_a || data -> p -> k_d)
+	{
+		temp = data->p->a;
+		data->p->a = limit_angle(data->p->a + PI / 2);
+		if (data -> p -> k_a)
+			data->p->a = limit_angle(data->p->a - PI);
+		asign_pos(&d, cos(data->p->a) * 1.7, sin(data->p->a) * 1.7);
+		move_player(data, &d);
+		data->p->a = temp;
+	}
+}
+
+void	handle_lr_keys(t_data *data)
+{
+	if (data -> p -> k_l || data -> p -> k_r)
+	{
+		data->p->a = limit_angle(data->p->a + 0.03);
+		if (data -> p -> k_l)
+			data->p->a = limit_angle(data->p->a - 0.06);
+		asign_pos(data->p->d, cos(data->p->a) * 1.9, sin(data->p->a) * 1.9);
+	}
 }
 
 int	handle_mouse(int x, int y, t_data *data)
@@ -101,9 +114,15 @@ int	handle_mouse(int x, int y, t_data *data)
 	if (x != RES_X / 2)
 	{
 		if ((RES_X / 2) - x < -90)
-			return (handle_key_input(XK_Right, data));
+		{
+			data->p->a = limit_angle(data->p->a + 0.05);
+			asign_pos(data->p->d, cos(data->p->a) * 1.9, sin(data->p->a) * 1.9);
+		}
 		if ((RES_X / 2) - x > 90)
-			return (handle_key_input(XK_Left, data));
+		{
+			data->p->a = limit_angle(data->p->a - 0.1);
+			asign_pos(data->p->d, cos(data->p->a) * 1.9, sin(data->p->a) * 1.9);
+		}
 	}
 	return ((void)x, (void)y, 1);
 }

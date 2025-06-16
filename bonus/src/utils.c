@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:51 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/11 14:53:51 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/16 19:11:38 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,17 @@ t_player	*init_player(t_pos *pos_init, float angle_init)
 {
 	t_player	*player;
 
-	player = calloc(1, sizeof(t_player));
+	player = ft_calloc(1, sizeof(t_player));
 	player -> pos = pos_init;
 	player -> a = angle_init;
-	player -> d = init_pos(cos(player->a) * 5, sin(player->a) * 5);
+	player -> d = init_pos(cos(player->a) * 1.9, sin(player->a) * 1.9);
+	player -> near_door = init_pos(-1, -1);
+	player -> k_w = 0;
+	player -> k_a = 0;
+	player -> k_s = 0;
+	player -> k_d = 0;
+	player -> k_l = 0;
+	player -> k_r = 0;
 	return (player);
 }
 
@@ -57,26 +64,16 @@ void	free_data(t_data *data)
 {
 	int	i;
 
-	mlx_destroy_image(data -> mlx, data -> img -> img);
-	free(data -> img);
-	mlx_destroy_image(data -> mlx, data -> no -> img);
-	free(data -> no);
-	mlx_destroy_image(data -> mlx, data -> so -> img);
-	free(data -> so);
-	mlx_destroy_image(data -> mlx, data -> we -> img);
-	free(data -> we);
-	mlx_destroy_image(data -> mlx, data -> ea -> img);
-	free(data -> ea);
-	mlx_destroy_image(data -> mlx, data -> minimap -> img);
-	free(data -> minimap);
-	mlx_destroy_image(data -> mlx, data -> door_open -> img);
-	free(data -> door_open);
-	mlx_destroy_image(data -> mlx, data -> door -> img);
-	free(data -> door);
 	i = -1;
-	while (++i < 8)
+	while (++i < data->m_size->y)
 		free(data->map[i]);
-	return (mlx_destroy_window(data->mlx, data->win),
+	mlx_do_key_autorepeaton(data -> mlx);
+	return (free_img(data, data -> img), free_img(data, data -> no),
+		free_img(data, data -> so), free_img(data, data -> ea),
+		free_img(data, data -> we), free_img(data, data -> minimap),
+		free_img(data, data -> d_open), free_img(data, data -> d),
+		free_sprites(data), mlx_destroy_window(data->mlx, data->win),
 		mlx_destroy_display(data->mlx), free(data->mlx), free(data->p->pos),
-		free(data->p->d), free(data->p), free(data->map), free(data));
+		free(data->p->d), free(data->p->near_door), free(data->p),
+		free(data->map), free(data->m_size), free(data));
 }

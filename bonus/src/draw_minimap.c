@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:36:03 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/11 15:13:21 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/16 19:01:20 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	drawmap2d(t_data *data)
 	t_pos	p;
 
 	asign_pos(&p, -1, -1);
-	while (++p.y < 8)
+	while (++p.y < data->m_size->y)
 	{
 		p.x = -1;
-		while (++p.x < 8)
+		while (++p.x < data->m_size->x)
 		{
 			color = get_cell_color(data, (int)p.x, (int)p.y);
 			i = (p.x * (CELLSIZE / 2)) - 1;

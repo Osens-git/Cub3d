@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 12:53:31 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/11 14:41:26 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/16 19:06:15 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,24 @@ int	hex_to_dec(char *nb)
 	return (free(nb), res);
 }
 
-void	get_dir_texture(t_ray *ray, t_pos r, t_data *data, int dir)
+void	get_dir_texture(t_ray *ray, t_pos r, t_data *d, int dir)
 {
 	if (dir == 1)
-	{
-		ray->tex = data -> ea;
-		if (r.x >= 0 && data -> map[(int)r.y][(int)r.x - 1] == -1)
-			ray->tex = data -> door_open;
-	}
+		ray->tex = d -> ea;
+	if (dir == 1 && r.x - 1 >= 0 && d -> map[(int)r.y][(int)r.x - 1] == -1)
+			ray->tex = d -> d_open;
 	if (dir == 2)
-	{
-		ray->tex = data -> we;
-		if (r.x < 8 && data -> map[(int)r.y][(int)r.x + 1] == -1)
-			ray->tex = data -> door_open;
-	}
+		ray->tex = d -> we;
+	if (dir == 2
+		&& r.x + 1 < d->m_size->x && d->map[(int)r.y][(int)r.x + 1] == -1)
+		ray->tex = d -> d_open;
 	if (dir == 3)
-	{
-		ray->tex = data -> no;
-		if (r.y + 1 < 8 && data -> map[(int)r.y + 1][(int)r.x] == -1)
-			ray->tex = data -> door_open;
-	}
+		ray->tex = d -> no;
+	if (dir == 3
+		&& r.y + 1 < d->m_size->y && d->map[(int)r.y + 1][(int)r.x] == -1)
+		ray->tex = d -> d_open;
 	if (dir == 4)
-	{
-		ray->tex = data -> so;
-		if (r.y - 1 >= 0 && data -> map[(int)r.y - 1][(int)r.x] == -1)
-			ray->tex = data -> door_open;
-	}
+		ray->tex = d -> so;
+	if (dir == 4 && r.y - 1 >= 0 && d -> map[(int)r.y - 1][(int)r.x] == -1)
+		ray->tex = d -> d_open;
 }
