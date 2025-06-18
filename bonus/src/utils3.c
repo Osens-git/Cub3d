@@ -5,71 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 12:53:31 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/16 19:06:15 by vluo             ###   ########.fr       */
+/*   Created: 2025/06/16 16:05:24 by vluo              #+#    #+#             */
+/*   Updated: 2025/06/17 13:55:24 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-float	dist(t_pos *a, t_pos *b)
+void	free_sprites(t_data	*data)
 {
-	return (sqrt((b->x - a->x) * (b->x - a->x)
-			+ (b->y - a->y) * (b->y - a->y)));
-}
-
-float	limit_angle(float nb)
-{
-	if (nb > 2 * PI)
-		return (nb - 2 * PI);
-	if (nb < 0)
-		return (nb + 2 * PI);
-	return (nb);
-}
-
-int	trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
-int	hex_to_dec(char *nb)
-{
-	int	res;
 	int	i;
-	int	p;
+	int	j;
 
-	res = 0;
-	p = 1;
 	i = -1;
-	while (nb[++i])
+	while (data->sprites[++i])
 	{
-		if (ft_isdigit(nb[ft_strlen(nb) - i - 1]) == 0)
-			res = res + ((9 + ((nb[ft_strlen(nb) - i - 1] - '0') % 16)) * p);
-		else
-			res = res + ((nb[ft_strlen(nb) - i - 1] - '0') * (p));
-		p = p * 16;
+		j = -1;
+		while (data->sprites[i]->textures[++j])
+			free_img(data, data->sprites[i]->textures[j]);
+		free(data->sprites[i]->textures);
+		free(data->sprites[i]);
 	}
-	return (free(nb), res);
+	free(data -> sprites);
 }
 
-void	get_dir_texture(t_ray *ray, t_pos r, t_data *d, int dir)
+void	free_img(t_data *data, t_img *img)
 {
-	if (dir == 1)
-		ray->tex = d -> ea;
-	if (dir == 1 && r.x - 1 >= 0 && d -> map[(int)r.y][(int)r.x - 1] == -1)
-			ray->tex = d -> d_open;
-	if (dir == 2)
-		ray->tex = d -> we;
-	if (dir == 2
-		&& r.x + 1 < d->m_size->x && d->map[(int)r.y][(int)r.x + 1] == -1)
-		ray->tex = d -> d_open;
-	if (dir == 3)
-		ray->tex = d -> no;
-	if (dir == 3
-		&& r.y + 1 < d->m_size->y && d->map[(int)r.y + 1][(int)r.x] == -1)
-		ray->tex = d -> d_open;
-	if (dir == 4)
-		ray->tex = d -> so;
-	if (dir == 4 && r.y - 1 >= 0 && d -> map[(int)r.y - 1][(int)r.x] == -1)
-		ray->tex = d -> d_open;
+	mlx_destroy_image(data->mlx, img->img);
+	free(img);
+}
+
+t_img	*xpm_img(t_data *data, char *file)
+{
+	int	w;
+	int	h;
+
+	return (mlx_xpm_file_to_image(data->mlx, file, &w, &h));
 }

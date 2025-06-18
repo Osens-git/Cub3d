@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:20:37 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/16 19:14:58 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/18 12:59:01 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	close_win(t_data *data)
 {
 	mlx_mouse_show(data->mlx, data->win);
+	mlx_do_key_autorepeaton(data -> mlx);
 	free_data(data);
 	exit(1);
 }
@@ -40,16 +41,17 @@ t_data	*init_data(void)
 {
 	t_data	*data;
 
-	data = calloc(1, sizeof(t_data));
+	data = ft_calloc(1, sizeof(t_data));
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window(data -> mlx, RES_X, RES_Y, "CUB3D");
-	data -> p = init_player(init_pos(7 * CELLSIZE, 4 * CELLSIZE), PI);
+	data -> p = init_player(init_pos(2.5 * CELLSIZE, 1.5 * CELLSIZE), PI / 2);
 	data -> img = init_img(data, NULL, RES_X, RES_Y);
 	data -> map = init_map();
-	data -> m_size = init_pos(8, 8);
+	data -> m_size = init_pos(4, 14);
 	data -> floor_col = trgb(0, 108, 108, 108);
 	data -> ceiling_col = trgb(0, 0, 80, 80);
-	data -> minimap = init_img(data, NULL, 256, 256);
+	data -> minimap = ft_calloc(1, sizeof(t_minimap));
+	init_minimap(data);
 	data -> frame = -1;
 	data->no = init_img(data, xpm_img(data, "textures/north.xpm"), 0, 0);
 	data->so = init_img(data, xpm_img(data, "textures/south.xpm"), 0, 0);

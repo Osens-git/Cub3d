@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 12:52:18 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/05 12:52:50 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/17 13:50:22 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,39 +22,22 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-t_array	*init_array(void)
+float	dist(t_pos *a, t_pos *b)
 {
-	t_array	*tab;
-
-	tab = ft_calloc(1, sizeof(t_array));
-	if (tab == 0)
-		return (NULL);
-	tab -> tot_len = 2;
-	tab -> arr_i = 0;
-	tab -> arr = ft_calloc(3, sizeof(char *));
-	if (tab -> arr == 0)
-		return (free(tab), NULL);
-	return (tab);
+	return (sqrt((b->x - a->x) * (b->x - a->x)
+			+ (b->y - a->y) * (b->y - a->y)));
 }
 
-char	**append(char **sp, int *len_tot, int *sp_i, char *sub)
+float	limit_angle(float nb)
 {
-	int		i;
-	char	**split_double;
+	if (nb > 2 * PI)
+		return (nb - 2 * PI);
+	if (nb < 0)
+		return (nb + 2 * PI);
+	return (nb);
+}
 
-	if (sub == 0)
-		return (free_tab(sp), NULL);
-	if (*sp_i < *len_tot)
-	{
-		*sp_i += 1;
-		return (sp[*sp_i - 1] = sub, sp);
-	}
-	split_double = ft_calloc((*len_tot * 2) + 1, sizeof(char *));
-	if (!split_double)
-		return (free_tab(sp), NULL);
-	i = -1;
-	while (sp[++i])
-		split_double[i] = sp[i];
-	return (split_double[i] = sub, split_double[i + 1] = 0,
-		*len_tot = *len_tot * 2, *sp_i = i + 1, free(sp), split_double);
+int	trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
 }

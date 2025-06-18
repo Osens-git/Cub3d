@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:25:45 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/16 18:30:49 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/18 13:02:38 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	drawsprite(t_data *data, t_sprite *sp)
 					+ (y * text->lin_len + x * (text->b_p_p / 8)));
 			if (color == -16777216 || color == 0)
 				continue ;
-			zoom(data, init_pos(x, y), color, 3);
+			zoom(data, init_pos(x, y), color, 4);
 		}
 	}
 }
@@ -70,12 +70,13 @@ int	display(t_data *data)
 	mlx_clear_window(data->mlx, data->win);
 	handle_wasd_keys(data);
 	handle_lr_keys(data);
-	drawmap2d(data);
+	drawm_minimap(data);
 	drawrays(data);
 	drawsprite(data, data->sprites[0]);
 	mlx_do_sync(data -> mlx);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 10, 10);
+	mlx_put_image_to_window(data->mlx, data->win,
+		data->minimap->m->img, 10, 10);
 	if (check_door(data))
 	{
 		if (data->p->can_open)

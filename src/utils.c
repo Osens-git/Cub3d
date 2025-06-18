@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:51 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/05 13:10:04 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/17 13:49:26 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_img	*init_img(t_data *data, void *img_ptr)
 {
 	t_img	*img;
 
-	img = calloc(1, sizeof(t_img));
+	img = ft_calloc(1, sizeof(t_img));
 	if (img_ptr == NULL)
 		img -> img = mlx_new_image(data->mlx, RES_X, RES_Y);
 	else
@@ -30,7 +30,7 @@ t_player	*init_player(t_pos *pos_init, float angle_init)
 {
 	t_player	*player;
 
-	player = calloc(1, sizeof(t_player));
+	player = ft_calloc(1, sizeof(t_player));
 	player -> pos = pos_init;
 	player -> a = angle_init;
 	player -> d = init_pos(cos(player->a) * 5, sin(player->a) * 5);
@@ -41,7 +41,7 @@ t_pos	*init_pos(float x, float y)
 {
 	t_pos	*p;
 
-	p = calloc(1, sizeof(t_pos));
+	p = ft_calloc(1, sizeof(t_pos));
 	p -> x = x;
 	p -> y = y;
 	return (p);
@@ -57,6 +57,10 @@ void	free_data(t_data *data)
 {
 	int	i;
 
+	i = -1;
+	while (++i < data -> m_size->y)
+		free(data->map[i]);
+	free(data -> m_size);
 	mlx_destroy_image(data -> mlx, data -> img -> img);
 	free(data -> img);
 	mlx_destroy_image(data -> mlx, data -> no -> img);
@@ -73,9 +77,6 @@ void	free_data(t_data *data)
 	free(data -> p -> pos);
 	free(data -> p -> d);
 	free(data -> p);
-	i = -1;
-	while (++i < 8)
-		free(data->map[i]);
 	free(data->map);
 	free(data);
 }

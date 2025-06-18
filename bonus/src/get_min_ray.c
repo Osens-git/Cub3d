@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 13:04:38 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/16 19:26:21 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/17 13:15:18 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,24 @@ static void	get_vr(t_pos *r, t_pos *off, t_pos *vray, t_data *data)
 
 void	get_vray(float ra, t_pos *vray, t_data *data)
 {
+	float	temp;
 	t_pos	r;
 	t_pos	off;
 
-	if (ra > PI / 2 && ra < 3 * PI / 2)
+	temp = ra;
+	if (ra == 0 || (PI - 0.0001 < ra && ra < PI + 0.0001))
+		temp += DRAD / 4;
+	if (temp > PI / 2 && temp < 3 * PI / 2)
 	{
 		r.x = (((int)data->p->pos->x / CELLSIZE) * CELLSIZE) - 0.0001;
-		r.y = ((data->p->pos->x - r.x) * (-tan(ra)) + data->p->pos->y);
-		asign_pos(&off, -CELLSIZE, -(-CELLSIZE) * (-tan(ra)));
+		r.y = ((data->p->pos->x - r.x) * (-tan(temp)) + data->p->pos->y);
+		asign_pos(&off, -CELLSIZE, -(-CELLSIZE) * (-tan(temp)));
 	}
-	if (ra < PI / 2 || ra > 3 * PI / 2)
+	if (temp < PI / 2 || temp > 3 * PI / 2)
 	{
 		r.x = (((int)data->p->pos->x / CELLSIZE) * CELLSIZE) + CELLSIZE;
-		r.y = ((data->p->pos->x - r.x) * (-tan(ra)) + data->p->pos->y);
-		asign_pos(&off, CELLSIZE, -(CELLSIZE) * (-tan(ra)));
+		r.y = ((data->p->pos->x - r.x) * (-tan(temp)) + data->p->pos->y);
+		asign_pos(&off, CELLSIZE, -(CELLSIZE) * (-tan(temp)));
 	}
-	if (ra == 0 || (PI - 0.0001 < ra && ra < PI + 0.0001))
-		asign_pos(&r,
-			data->p->pos->x - ((int)roundf((int)data->p->pos->x % CELLSIZE)),
-			data->p->pos->y);
 	return (get_vr(&r, &off, vray, data));
 }
