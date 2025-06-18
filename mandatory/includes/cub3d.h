@@ -6,16 +6,16 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/17 13:53:01 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/18 13:15:31 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line_bonus.h"
-# include "../minilibx-linux/mlx.h"
+# include "../../libft/includes/libft.h"
+# include "../../libft/includes/get_next_line_bonus.h"
+# include "../../minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <X11/keysym.h>

@@ -6,7 +6,7 @@
 #    By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/29 13:22:33 by vluo              #+#    #+#              #
-#    Updated: 2025/06/17 13:55:38 by vluo             ###   ########.fr        #
+#    Updated: 2025/06/18 13:15:01 by vluo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@
 NAME			=	cub3d
 BONUS_NAME		=	cub3d_bonus
 
-SRC_DIR			=	src/
+SRC_DIR			=	mandatory/src/
 SRC_BONUS_DIR	=	bonus/src/
 
-OBJ_DIR			=	obj/
+OBJ_DIR			=	mandatory/obj/
 OBJ_BONUS_DIR	=	bonus/obj/
 
-INC				=	includes/
+INC				=	mandatory/includes/
 INC_BONUS		=	bonus/includes
 
 CC				=	cc
