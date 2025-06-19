@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:24:51 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/17 18:28:14 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/19 12:07:20 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,13 @@ t_img	*init_img(t_data *data, void *img_ptr, int res_x, int res_y)
 
 t_player	*init_player(t_pos *pos_init, float angle_init)
 {
-	t_player	*player;
+	t_player	*p;
 
-	player = ft_calloc(1, sizeof(t_player));
-	player -> pos = pos_init;
-	player -> a = angle_init;
-	player -> d = init_pos(cos(player->a) * 1.9, sin(player->a) * 1.9);
-	player -> near_door = init_pos(-1, -1);
-	player -> k_w = 0;
-	player -> k_a = 0;
-	player -> k_s = 0;
-	player -> k_d = 0;
-	player -> k_l = 0;
-	player -> k_r = 0;
-	return (player);
+	p = ft_calloc(1, sizeof(t_player));
+	p -> a = angle_init;
+	p -> d = init_pos(cos(p->a) * 1.9, sin(p->a) * 1.9);
+	return (p->near_door = init_pos(-1, -1), p->pos = pos_init, p->k_w = 0,
+		p->k_a = 0, p->k_s = 0, p->k_d = 0, p->k_l = 0, p->k_r = 0, p);
 }
 
 t_pos	*init_pos(float x, float y)

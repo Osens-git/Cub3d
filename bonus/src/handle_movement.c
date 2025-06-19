@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 12:03:26 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/16 19:11:08 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/19 12:08:10 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,18 @@ void	handle_wasd_keys(t_data *data)
 
 	asign_pos(&d, data->p->d->x, data->p->d->y);
 	asign_pos(&p, data->p->pos->x, data->p->pos->y);
-	if (data -> p -> k_w || data -> p -> k_s)
+	if (data -> p -> k_w == 1 || data -> p -> k_s == 1)
 	{
 		asign_pos(&dir, d.x, d.y);
-		if (data -> p -> k_s)
+		if (data -> p -> k_s == 1)
 			asign_pos(&dir, -d.x, -d.y);
 		move_player(data, &dir);
 	}
-	if (data -> p -> k_a || data -> p -> k_d)
+	if (data -> p -> k_a == 1 || data -> p -> k_d == 1)
 	{
 		temp = data->p->a;
 		data->p->a = limit_angle(data->p->a + PI / 2);
-		if (data -> p -> k_a)
+		if (data -> p -> k_a == 1)
 			data->p->a = limit_angle(data->p->a - PI);
 		asign_pos(&d, cos(data->p->a) * 1.7, sin(data->p->a) * 1.7);
 		move_player(data, &d);
@@ -101,9 +101,9 @@ void	handle_lr_keys(t_data *data)
 {
 	if (data -> p -> k_l || data -> p -> k_r)
 	{
-		data->p->a = limit_angle(data->p->a + 0.03);
+		data->p->a = limit_angle(data->p->a + 0.035);
 		if (data -> p -> k_l)
-			data->p->a = limit_angle(data->p->a - 0.06);
+			data->p->a = limit_angle(data->p->a - 0.07);
 		asign_pos(data->p->d, cos(data->p->a) * 1.9, sin(data->p->a) * 1.9);
 	}
 }
@@ -115,13 +115,15 @@ int	handle_mouse(int x, int y, t_data *data)
 	{
 		if ((RES_X / 2) - x < -90)
 		{
-			data->p->a = limit_angle(data->p->a + 0.05);
-			asign_pos(data->p->d, cos(data->p->a) * 1.9, sin(data->p->a) * 1.9);
+			data->p->k_r = 1;
+			handle_lr_keys(data);
+			data->p->k_r = 0;
 		}
 		if ((RES_X / 2) - x > 90)
 		{
-			data->p->a = limit_angle(data->p->a - 0.1);
-			asign_pos(data->p->d, cos(data->p->a) * 1.9, sin(data->p->a) * 1.9);
+			data->p->k_l = 1;
+			handle_lr_keys(data);
+			data->p->k_l = 0;
 		}
 	}
 	return ((void)x, (void)y, 1);
