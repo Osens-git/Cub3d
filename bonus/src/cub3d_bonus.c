@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:20:37 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/18 12:59:01 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/22 19:37:51 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	close_win(t_data *data)
 {
 	mlx_mouse_show(data->mlx, data->win);
-	mlx_do_key_autorepeaton(data -> mlx);
 	free_data(data);
 	exit(1);
 }
@@ -44,30 +43,47 @@ t_data	*init_data(void)
 	data = ft_calloc(1, sizeof(t_data));
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window(data -> mlx, RES_X, RES_Y, "CUB3D");
-	data -> p = init_player(init_pos(2.5 * CELLSIZE, 1.5 * CELLSIZE), PI / 2);
 	data -> img = init_img(data, NULL, RES_X, RES_Y);
-	data -> map = init_map();
-	data -> m_size = init_pos(4, 14);
-	data -> floor_col = trgb(0, 108, 108, 108);
-	data -> ceiling_col = trgb(0, 0, 80, 80);
-	data -> minimap = ft_calloc(1, sizeof(t_minimap));
-	init_minimap(data);
 	data -> frame = -1;
-	data->no = init_img(data, xpm_img(data, "textures/north.xpm"), 0, 0);
-	data->so = init_img(data, xpm_img(data, "textures/south.xpm"), 0, 0);
-	data->ea = init_img(data, xpm_img(data, "textures/east.xpm"), 0, 0);
-	data->we = init_img(data, xpm_img(data, "textures/west.xpm"), 0, 0);
-	data->d = init_img(data, xpm_img(data, "textures/Tile_04.xpm"), 0, 0);
-	data->d_open = init_img(data, xpm_img(data, "textures/blank.xpm"), 0, 0);
 	init_sprites(data);
 	return (data);
 }
 
-int	main(void)
+int	parse_cub(int ac, char **av, t_data *data)
+{
+	int		start;
+	char	**file;
+
+	if (check_arg(ac, av) == 0)
+		return (0);
+	file = get_file_map(av[1]);
+	if (!file)
+		return (0);
+	start = size_map(data, file);
+	if (start == -1)
+		return (free_tab(file), 0);
+	if (!check_nb_tex_col(file, start) || !parse_elems(data, start, file))
+		return (free_tab(file), 0);
+	egalize_map(data, start, file);
+	if (!check_map(file, start)
+		|| !check_surrounded(file, data->m_size->y, start))
+		return (free_tab(file), 0);
+	data->map = parse_map(data, start, file);
+	free_tab(file);
+	if (!data -> map)
+		return (free_tab(file), 0);
+	return (1);
+}
+
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
 	data = init_data();
+	if (!parse_cub(argc, argv, data))
+		return (free_data(data), 0);
+	data -> minimap = ft_calloc(1, sizeof(t_minimap));
+	init_minimap(data);
 	display(data);
 	mlx_do_key_autorepeatoff(data -> mlx);
 	mlx_mouse_hide(data->mlx, data->win);

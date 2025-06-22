@@ -5,43 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 16:05:24 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/22 19:17:43 by vluo             ###   ########.fr       */
+/*   Created: 2025/06/22 14:46:41 by vluo              #+#    #+#             */
+/*   Updated: 2025/06/22 15:15:26 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d_bonus.h"
-
-void	free_sprites(t_data	*data)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (data->sprites[++i])
-	{
-		j = -1;
-		while (data->sprites[i]->textures[++j])
-			free_img(data, data->sprites[i]->textures[j]);
-		free(data->sprites[i]->textures);
-		free(data->sprites[i]);
-	}
-	free(data -> sprites);
-}
-
-void	free_img(t_data *data, t_img *img)
-{
-	mlx_destroy_image(data->mlx, img->img);
-	free(img);
-}
-
-t_img	*xpm_img(t_data *data, char *file)
-{
-	int	w;
-	int	h;
-
-	return (mlx_xpm_file_to_image(data->mlx, file, &w, &h));
-}
+#include "../includes/cub3d.h"
 
 char	*ft_strcpy(char *dest, char *src)
 {
@@ -64,4 +33,22 @@ int	check_limits(t_color *color)
 		|| color->b < 0 || color->b > 255)
 		return (exit_mess("Colors must be on a range 0-255"));
 	return (1);
+}
+
+void	free_tab_int(int **t)
+{
+	int	i;
+
+	if (t == 0)
+		return ;
+	i = -1;
+	while (t[++i])
+		free(t[i]);
+	free(t);
+}
+
+void	free_img(t_data *data, t_img *img)
+{
+	mlx_destroy_image(data->mlx, img->img);
+	free(img);
 }

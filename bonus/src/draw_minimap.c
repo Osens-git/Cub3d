@@ -6,61 +6,27 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:36:03 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/17 17:36:39 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/22 19:42:47 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
-
-int	*init_tab(int n1, int n2, int n3, int n4)
-{
-	int	*t;
-
-	t = ft_calloc(5, sizeof(int));
-	t[0] = n1;
-	t[1] = n2;
-	t[2] = n3;
-	t[3] = n4;
-	return (t);
-}
-
-int	**init_map(void)
-{
-	int	**map;
-
-	map = ft_calloc(15, sizeof(int *));
-	map[0] = init_tab(1, 1, 1, 1);
-	map[1] = init_tab(1, 0, 0, 1);
-	map[2] = init_tab(1, 0, 0, 1);
-	map[3] = init_tab(1, 0, 0, 1);
-	map[4] = init_tab(1, 0, 1, 1);
-	map[5] = init_tab(1, 0, 0, 1);
-	map[6] = init_tab(1, 1, 0, 1);
-	map[7] = init_tab(1, 0, 0, 1);
-	map[8] = init_tab(1, 0, 0, 1);
-	map[9] = init_tab(1, 0, 1, 1);
-	map[10] = init_tab(1, 0, 0, 1);
-	map[11] = init_tab(1, 1, 0, 1);
-	map[12] = init_tab(1, 0, 0, 1);
-	map[13] = init_tab(1, 1, 1, 1);
-	return (map);
-}
 
 void	draw_minimap_ray(t_data *data, t_ray *ray, t_pos *mp)
 {
 	t_pos	minimap_ray;
 
 	asign_pos(&minimap_ray,
-		(ray->mindist.x / 2) - (data->minimap->st->x * CELLSIZE / 2),
-		(ray->mindist.y / 2) - (data->minimap->st->y * CELLSIZE / 2));
+		roundf(ray->mindist.x / 2) - (data->minimap->st->x * CELLSIZE / 2),
+		roundf(ray->mindist.y / 2) - (data->minimap->st->y * CELLSIZE / 2));
 	if (minimap_ray.x < 0)
 		minimap_ray.x = 0;
 	if (minimap_ray.x > data -> minimap -> size -> x)
-		minimap_ray.x = data -> minimap -> size -> x;
+		minimap_ray.x = data -> minimap -> size -> x - 1;
 	if (minimap_ray.y < 0)
 		minimap_ray.y = 0;
 	if (minimap_ray.y > data -> minimap -> size -> y)
-		minimap_ray.y = data -> minimap -> size -> y;
+		minimap_ray.y = data -> minimap -> size -> y - 1;
 	drawline(data->minimap->m, mp, &minimap_ray, 0x00ffffff);
 }
 

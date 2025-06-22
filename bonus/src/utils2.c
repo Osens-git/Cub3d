@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 12:52:18 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/17 17:30:03 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/22 19:37:12 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 void	free_data(t_data *data)
 {
-	int	i;
-
-	i = -1;
-	while (++i < data->m_size->y)
-		free(data->map[i]);
 	mlx_do_key_autorepeaton(data -> mlx);
-	return (free_img(data, data -> img), free_img(data, data -> no),
-		free_img(data, data -> so), free_img(data, data -> ea),
-		free_img(data, data -> we), free_img(data, data -> minimap -> m),
-		free_img(data, data -> d_open), free_img(data, data -> d),
-		free_sprites(data), mlx_destroy_window(data->mlx, data->win),
-		mlx_destroy_display(data->mlx), free(data->mlx), free(data->p->pos),
-		free(data->p->d), free(data->p->near_door), free(data->p),
-		free(data->minimap->st), free(data->minimap->end),
-		free(data->minimap->size), free(data->minimap),
-		free(data->map), free(data->m_size), free(data));
+	if (data->no)
+		free_img(data, data -> no);
+	if (data->so)
+		free_img(data, data->so);
+	if (data->ea)
+		free_img(data, data->ea);
+	if (data->we)
+		free_img(data, data->we);
+	if (data->d)
+		free_img(data, data->d);
+	if (data->d_open)
+		free(data->d_open);
+	if (data -> map)
+		free_tab_int(data->map);
+	return (free_img(data, data->img), free_minimap(data), free_sprites(data),
+		mlx_destroy_window(data->mlx, data->win),
+		mlx_destroy_display(data->mlx), free(data->mlx),
+		free_player(data), free(data->m_size), free(data));
 }
 
 float	dist(t_pos *a, t_pos *b)
