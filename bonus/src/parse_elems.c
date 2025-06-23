@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:50:20 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/06/22 19:32:35 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 10:36:27 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,21 @@
 static int	is_digit(char *line)
 {
 	int	nb;
+	int	i;
 
-	nb = atoi(line);
-	if (nb >= 0 && nb <= 255)
+	nb = 1;
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i ++;
+	if (!line[i] || (line[i] != '+' && line[i] != '-' && !ft_isdigit(line[i])))
+		return (0);
+	if (line[i] == '-' || line[i] == '+')
+		if (line[i++] == '-')
+			nb = -1;
+	while (line[i] && line[i] == '0')
+		i ++;
+	nb *= ft_atoi(&line[i]);
+	if (nb >= 0 && nb <= 255 && ft_strlen(&line[i]) <= 4)
 		return (1);
 	return (0);
 }
