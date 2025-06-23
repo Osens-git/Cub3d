@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 18:32:40 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/17 17:24:27 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 12:45:36 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,13 @@ void	drawrays(t_data *data)
 	int		i;
 	float	ra;
 	t_ray	*ray;
-	t_pos	minimap_pos;
 
 	ra = limit_angle(data->p->a - DRAD * 30);
 	i = -1;
-	asign_pos(&minimap_pos,
-		(data->p->pos->x / 2) - (data->minimap->st->x * CELLSIZE / 2),
-		(data->p->pos->y / 2) - (data->minimap->st->y * CELLSIZE / 2));
 	while (++i < 240)
 	{
 		ray = ft_calloc(1, sizeof(t_ray));
 		get_ray_dist(ra, ray, data);
-		draw_minimap_ray(data, ray, &minimap_pos);
 		get_ray_tex(ra, ray, data);
 		draw_ray(i, ray, data);
 		free(ray);

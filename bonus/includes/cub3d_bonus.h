@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:23:04 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/22 19:31:53 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 12:56:31 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int			**parse_map(t_data *data, int start, char **file);
 t_img		*xpm_img(t_data *data, char *file);
 t_img		*init_img(t_data *data, void *img_ptr, int res_x, int res_y);
 void		free_img(t_data *data, t_img *img);
-t_player	*init_player(t_data *data, t_pos *pos_init, char dir);
+void		init_player(t_data *data, t_pos *pos_init, char dir);
 void		free_sprites(t_data	*data);
 void		free_data(t_data *data);
 
@@ -204,7 +204,7 @@ int			exit_mess(char *message);
 void		put_pixel(t_img *img, t_pos *a, int color, int do_free);
 void		drawline(t_img *img, t_pos *a, t_pos *b, int color);
 void		draw_straight(t_img	*img, t_pos	*a, t_pos *b, int color);
-void		put_text(t_data *data, char *text);
+void		put_text(t_data *data);
 void		init_minimap(t_data *data);
 void		drawm_minimap(t_data *d);
 
@@ -213,7 +213,7 @@ void		drawm_minimap(t_data *d);
 void		get_hray(float ra, t_pos *hray, t_data *data);
 void		get_vray(float ra, t_pos *vray, t_data *data);
 void		get_dir_texture(t_ray *ray, t_pos r, t_data *data, int dir);
-void		draw_minimap_ray(t_data *data, t_ray *ray, t_pos *mp);
+void		draw_minimap_player(t_data *data);
 void		drawrays(t_data *data);
 
 /* MAIN FUNCTIONS */

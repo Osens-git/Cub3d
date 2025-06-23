@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:05:24 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/22 19:17:43 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 11:00:54 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_sprites(t_data	*data)
 	int	i;
 	int	j;
 
+	if (!data -> sprites)
+		return ;
 	i = -1;
 	while (data->sprites[++i])
 	{

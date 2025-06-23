@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 12:52:18 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/22 19:37:12 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:08:50 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	free_data(t_data *data)
 {
 	mlx_do_key_autorepeaton(data -> mlx);
+	mlx_mouse_show(data->mlx, data -> win);
 	if (data->no)
 		free_img(data, data -> no);
 	if (data->so)
@@ -26,7 +27,7 @@ void	free_data(t_data *data)
 	if (data->d)
 		free_img(data, data->d);
 	if (data->d_open)
-		free(data->d_open);
+		free_img(data, data->d_open);
 	if (data -> map)
 		free_tab_int(data->map);
 	return (free_img(data, data->img), free_minimap(data), free_sprites(data),

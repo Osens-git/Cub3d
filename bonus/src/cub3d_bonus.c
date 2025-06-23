@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:20:37 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/22 19:37:51 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:09:42 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int	close_win(t_data *data)
 {
-	mlx_mouse_show(data->mlx, data->win);
 	free_data(data);
-	exit(1);
+	exit(0);
 }
 
 void	init_sprites(t_data *data)
 {
 	data -> sprites = ft_calloc(2, sizeof(t_sprite *));
+	if (!data->sprites)
+		return ;
 	data -> sprites[0] = ft_calloc(1, sizeof(t_sprite));
 	data -> sprites[0]-> textures = ft_calloc(6, sizeof(t_img));
 	data -> sprites[0]-> textures[0] = init_img(data,
@@ -39,11 +40,24 @@ void	init_sprites(t_data *data)
 t_data	*init_data(void)
 {
 	t_data	*data;
+	t_img	*tex;
 
 	data = ft_calloc(1, sizeof(t_data));
+	if (!data)
+		return (exit_mess("Malloc error"), NULL);
 	data -> mlx = mlx_init();
 	data -> win = mlx_new_window(data -> mlx, RES_X, RES_Y, "CUB3D");
 	data -> img = init_img(data, NULL, RES_X, RES_Y);
+	tex = xpm_img(data, "./textures/Tile_04.xpm");
+	if (tex == 0)
+		return (free_data(data),
+			exit_mess("Error with door texture file"), NULL);
+	data -> d = init_img(data, tex, 0, 0);
+	tex = xpm_img(data, "./textures/blank.xpm");
+	if (tex == 0)
+		return (free_data(data),
+			exit_mess("Error with open door texture file"), NULL);
+	data -> d_open = init_img(data, tex, 0, 0);
 	data -> frame = -1;
 	init_sprites(data);
 	return (data);
@@ -70,7 +84,7 @@ int	parse_cub(int ac, char **av, t_data *data)
 		return (free_tab(file), 0);
 	data->map = parse_map(data, start, file);
 	free_tab(file);
-	if (!data -> map)
+	if (!data -> map || !data->p)
 		return (free_tab(file), 0);
 	return (1);
 }
@@ -80,6 +94,8 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = init_data();
+	if (!data)
+		return (1);
 	if (!parse_cub(argc, argv, data))
 		return (free_data(data), 0);
 	data -> minimap = ft_calloc(1, sizeof(t_minimap));

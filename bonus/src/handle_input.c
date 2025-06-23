@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 14:19:45 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/16 18:30:06 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:10:06 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	handle_door(t_data	*data)
 int	handle_key_input(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
-		return (printf("%d (ESC) key pressed\n", keysym),
-			free_data(data), exit(0), 0);
+		return (printf("%d (ESC) key pressed\n", keysym), close_win(data), 0);
 	if (keysym == XK_w)
 		data -> p -> k_w = 1;
 	if (keysym == XK_a)

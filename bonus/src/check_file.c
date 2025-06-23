@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 11:50:32 by mcauchy-          #+#    #+#             */
-/*   Updated: 2025/06/22 19:02:33 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 11:23:14 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static int	is_rem_all_sp(char **map, int i, int j)
 	int	dir;
 	int	k;
 
+	if (!(map[i][j] == '0' || map[i][j] == '2'))
+		return (1);
 	dir = 1;
 	if (map[i + 1] == 0)
 		dir = -1;
@@ -96,8 +98,8 @@ int	check_surrounded(char **map, int y, int st)
 			while (map[st + i][++j])
 			{
 				if ((map[st + i][j] != '1' && map[st + i][j] != '0'
-						&& map[st + i][j] != ' ') || (map[st + i][j] == '0'
-						&& is_rem_all_sp(map, st + i, j) == 0))
+						&& map[st + i][j] != '2' && map[st + i][j] != ' ')
+						|| is_rem_all_sp(map, st + i, j) == 0)
 					return (exit_mess(EXIT_MAP));
 			}
 			continue ;
@@ -127,7 +129,7 @@ int	check_map(char **file, int start)
 			if (file[start + i][j] != 'N' && file[start + i][j] != 'S' \
 				&& file[start + i][j] != 'E' && file[start + i][j] != 'W' \
 				&& file[start + i][j] != '1' && file[start + i][j] != '0' \
-				&& file[start + i][j] != ' ')
+				&& file[start + i][j] != ' ' && file[start + i][j] != '2')
 				return (exit_mess("Invalid char in map"));
 			if (file[start + i][j] == 'N' || file[start + i][j] == 'S' \
 				|| file[start + i][j] == 'E' || file[start + i][j] == 'W')

@@ -6,7 +6,7 @@
 /*   By: vluo <vluo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 16:25:45 by vluo              #+#    #+#             */
-/*   Updated: 2025/06/18 13:02:38 by vluo             ###   ########.fr       */
+/*   Updated: 2025/06/23 13:00:00 by vluo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,19 @@ void	drawsprite(t_data *data, t_sprite *sp)
 	}
 }
 
-void	put_text(t_data *data, char *text)
+void	put_text(t_data *data)
 {
-	mlx_string_put(data -> mlx, data -> win,
-		RES_X / 2, RES_Y / 2 + 150, 0x00FFFFFF, text);
+	if (check_door(data))
+	{
+		if (data->p->can_open)
+			mlx_string_put(data -> mlx, data -> win,
+				RES_X / 2 - 60, RES_Y / 2 + 150, 0x00FFFFFF,
+				"Press (e) to open door");
+		if (data->p->can_close)
+			mlx_string_put(data -> mlx, data -> win,
+				RES_X / 2 - 60, RES_Y / 2 + 150, 0x00FFFFFF,
+				"Press (e) to close door");
+	}
 }
 
 int	display(t_data *data)
@@ -74,15 +83,7 @@ int	display(t_data *data)
 	drawrays(data);
 	drawsprite(data, data->sprites[0]);
 	mlx_do_sync(data -> mlx);
-	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win,
-		data->minimap->m->img, 10, 10);
-	if (check_door(data))
-	{
-		if (data->p->can_open)
-			put_text(data, "Press (e) to open door");
-		if (data->p->can_close)
-			put_text(data, "Press (e) to close door");
-	}
-	return (1);
+	return (mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0),
+		mlx_put_image_to_window(data->mlx, data->win,
+			data->minimap->m->img, 10, 10), put_text(data), 1);
 }
